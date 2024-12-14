@@ -28,7 +28,6 @@ public class CommandDTO implements Serializable {
     private long amount;
     private long balance;
     private AccountType accountType;
-    private ExchangeType exchangeType;
     private Date accountDate;
     private ResponseType responseType;
 
@@ -58,12 +57,6 @@ public class CommandDTO implements Serializable {
 		this.amount = amount;
 	}
 
-    public CommandDTO(RequestType requestType, ExchangeType exchangeType, String userAccountNo, long amount) {
-        this.requestType = requestType;
-        this.exchangeType = exchangeType;
-        this.userAccountNo = userAccountNo;
-        this.amount = amount;
-    }
 
 	public CommandDTO(RequestType requestType, String name, String newid, String password, String password2) {
         this.requestType = requestType;
@@ -206,13 +199,6 @@ public class CommandDTO implements Serializable {
 
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
-    }
-    public ExchangeType getExchangeType() {
-        return exchangeType;
-    }
-
-    public void setExchangeType(ExchangeType exchangeType) {
-        this.exchangeType = exchangeType;
     }
     public Date getAccountDate() {
         return accountDate;

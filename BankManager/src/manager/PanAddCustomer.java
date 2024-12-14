@@ -14,6 +14,8 @@ import java.nio.ByteBuffer;
 import java.nio.channels.CompletionHandler;
 
 //*******************************************************************
+// # 03
+//*******************************************************************
 // Name : PanViewAccount
 // Type : Class
 // Description :  계좌조회 화면 패널을 구현한 Class 이다.
@@ -30,9 +32,12 @@ public class PanAddCustomer extends JPanel implements ActionListener
     private  JTextArea Text_Password2;
 
     private JButton Btn_Register;
+    private JButton Btn_Close;
 
     ManagerMain MainFrame;
     
+    //*******************************************************************
+    // # 03-01
     //*******************************************************************
     // Name : PanViewAccount()
     // Type : 생성자
@@ -44,6 +49,8 @@ public class PanAddCustomer extends JPanel implements ActionListener
         InitGUI();
     }
     
+    //*******************************************************************
+    // # 03-02
     //*******************************************************************
     // Name : InitGUI
     // Type : Method
@@ -99,8 +106,14 @@ public class PanAddCustomer extends JPanel implements ActionListener
         Btn_Register.addActionListener(this);
         add(Btn_Register);
 
+        Btn_Close = new JButton("닫기");
+        Btn_Close.setBounds(250,250,70,20);
+        Btn_Close.addActionListener(this);
+        add(Btn_Close);
     }
 
+    //*******************************************************************
+    // # 03-02-01
     //*******************************************************************
     // Name : actionPerformed
     // Type : Listner
@@ -109,16 +122,25 @@ public class PanAddCustomer extends JPanel implements ActionListener
     //*******************************************************************
     public void actionPerformed(ActionEvent e)
     {
+        if (e.getSource() == Btn_Close)
+        {
+            this.setVisible(false);
+            MainFrame.display("Main");
+        }
         if (e.getSource() == Btn_Register) {
             Register_Cus();
             this.setVisible(false);
             MainFrame.display("Main");
         }
     } 
-
-
-
-    //
+    
+    //*******************************************************************
+    // # 03-03
+    //*******************************************************************
+    // Name : GetBalance()
+    // Type : Method
+    // Description :  ManagerMain의 Send 기능을 호출하여 서버에 계좌조회 요청 메시지를 전달 하는 기능.
+    //*******************************************************************
     public void Register_Cus()
     {
         String name = Text_Name.getText();

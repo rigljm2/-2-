@@ -15,6 +15,8 @@ import java.nio.ByteBuffer;
 import java.nio.channels.CompletionHandler;
 
 //*******************************************************************
+// # 04
+//*******************************************************************
 // Name : PanTransfer
 // Type : Class
 // Description :  계좌 이체 패널을 구현한 Class 이다.
@@ -32,9 +34,12 @@ public class PanAddAccount extends JPanel implements ActionListener
     private  JTextArea Text_Amount;
 
     private JButton Btn_Register;
+    private JButton Btn_Close;
 
     ManagerMain MainFrame;
 
+    //*******************************************************************
+    // # 04-01
     //*******************************************************************
     // Owner : PanTransfer()
     // Type : 생성자
@@ -46,6 +51,8 @@ public class PanAddAccount extends JPanel implements ActionListener
         InitGUI();
     }
     
+    //*******************************************************************
+    // # 04-02
     //*******************************************************************
     // Owner : InitGUI
     // Type : Method
@@ -81,6 +88,10 @@ public class PanAddAccount extends JPanel implements ActionListener
         Label_Type.setHorizontalAlignment(JLabel.LEFT);
         add(Label_Type);
 
+//        Text_Type = new JTextArea();
+//        Text_Type.setBounds(100,130,350,20);
+//        Text_Type.setEditable(true);
+//        add(Text_Type);
         String[] items = {"당좌예금계좌", "저축예금계좌"};
         Box_Type = new JComboBox(items);
         Box_Type.setBounds(100,130,350,20);
@@ -101,9 +112,16 @@ public class PanAddAccount extends JPanel implements ActionListener
         Btn_Register.setBounds(100,250,70,20);
         Btn_Register.addActionListener(this);
         add(Btn_Register);
+
+        Btn_Close = new JButton("닫기");
+        Btn_Close.setBounds(250,250,70,20);
+        Btn_Close.addActionListener(this);
+        add(Btn_Close);
     }
 
 
+    //*******************************************************************
+    // # 04-02-01
     //*******************************************************************
     // Name : actionPerformed
     // Type : Listner
@@ -118,8 +136,15 @@ public class PanAddAccount extends JPanel implements ActionListener
             this.setVisible(false);
             MainFrame.display("Main");
         }
+        if (e.getSource() == Btn_Close)
+        {
+            this.setVisible(false);
+            MainFrame.display("Main");
+        }
     }
 
+    //*******************************************************************
+    // # 04-03
     //*******************************************************************
     // Name : Transfer()
     // Type : Method

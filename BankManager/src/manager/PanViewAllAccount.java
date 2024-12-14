@@ -19,6 +19,8 @@ import java.nio.channels.CompletionHandler;
 import java.util.Date;
 
 //*******************************************************************
+// # 06
+//*******************************************************************
 // Name : PanViewAllAccount
 // Type : Class
 // Description : 모든 계좌 정보를 조회하고 삭제할 수 있는 패널을 구현한 클래스입니다.
@@ -27,12 +29,14 @@ public class PanViewAllAccount extends JPanel implements ActionListener, ListSel
 {
     private JLabel labelAccount;
     private JList<String> listAccount; // 계좌 목록
-    private JButton btnDelete;
+    private JButton btnClose, btnDelete;
     private JScrollPane scrollPane;
     private JPanel panLeft;
 
     private ManagerMain mainFrame;
 
+    //*******************************************************************
+    // # 06-01
     //*******************************************************************
     // Name : PanViewAllAccount()
     // Type : Constructor
@@ -44,6 +48,8 @@ public class PanViewAllAccount extends JPanel implements ActionListener, ListSel
         initGUI();
     }
 
+    //*******************************************************************
+    // # 06-02
     //*******************************************************************
     // Name : initGUI
     // Type : Method
@@ -83,14 +89,25 @@ public class PanViewAllAccount extends JPanel implements ActionListener, ListSel
         btnDelete.addActionListener(this);
         btnDelete.setToolTipText("선택한 계좌를 삭제합니다.");
 
+        btnClose = new JButton("닫기");
+        btnClose.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
+        btnClose.setBackground(new Color(108, 117, 125));
+        btnClose.setForeground(Color.BLACK);
+        btnClose.setFocusPainted(false);
+        btnClose.setPreferredSize(new Dimension(70, 25));
+        btnClose.addActionListener(this);
+        btnClose.setToolTipText("패널을 닫고 메인 화면으로 돌아갑니다.");
 
         buttonPanel.add(btnDelete);
+        buttonPanel.add(btnClose);
 
         panLeft.add(buttonPanel, BorderLayout.SOUTH);
 
         add(panLeft, BorderLayout.CENTER);
     }
 
+    //*******************************************************************
+    // # 06-02-01
     //*******************************************************************
     // Name : actionPerformed
     // Type : Listener
@@ -107,8 +124,15 @@ public class PanViewAllAccount extends JPanel implements ActionListener, ListSel
             this.setVisible(false);
             mainFrame.display("Main");
         }
+        if (e.getSource() == btnClose)
+        {
+            this.setVisible(false);
+            mainFrame.display("Main");
+        }
     }
 
+    //*******************************************************************
+    // # 06-02-02
     //*******************************************************************
     // Name : valueChanged
     // Type : Listener
@@ -125,6 +149,8 @@ public class PanViewAllAccount extends JPanel implements ActionListener, ListSel
         }
     }
 
+    //*******************************************************************
+    // # 06-03
     //*******************************************************************
     // Name : GetAccountList
     // Type : Method
@@ -165,6 +191,8 @@ public class PanViewAllAccount extends JPanel implements ActionListener, ListSel
         });
     }
 
+    //*******************************************************************
+    // # 06-04
     //*******************************************************************
     // Name : ViewAccount
     // Type : Method
@@ -213,6 +241,8 @@ public class PanViewAllAccount extends JPanel implements ActionListener, ListSel
         });
     }
 
+    //*******************************************************************
+    // # 06-05
     //*******************************************************************
     // Name : delete
     // Type : Method

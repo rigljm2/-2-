@@ -2,7 +2,6 @@ package manager;
 
 import common.CommandDTO;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -20,6 +19,11 @@ import java.nio.channels.CompletionHandler;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+//*******************************************************************
+// Name : ManagerMain
+// Type : Class
+// Description :  ATM기기의 GUI 프레임이며, 서버와의 소켓통신을 담당한다
+//*******************************************************************
 public class ManagerMain
         extends JFrame
         implements ActionListener, BankServiceHandler {
@@ -31,6 +35,8 @@ public class ManagerMain
     private JButton btnViewAllCustomer;
     private JButton btnViewAllAccount;
     private JButton btnExit;
+    private ImageIcon iconCNU;
+    private JLabel labelImage;
 
 
     PanAddCustomer panAddCustomer;
@@ -45,16 +51,23 @@ public class ManagerMain
     private AsynchronousSocketChannel channel;
 
 
-    
-    // ManagerMain Class의 생성자, 통신 시작, gui 초기화
-    
+    //*******************************************************************
+    // Name : ManagerMain()
+    // Type : 생성자
+    // Description :  ManagerMain Class의 생성자로서, 소켓통신을 시작하고 GUI를 초기화한다
+    //*******************************************************************
     public ManagerMain() {
         startClient();
         initGui();
         setVisible(true);
     }
 
-    //initGui(), gui 초기화
+    //*******************************************************************
+    // Name : initGui
+    // Type : Method
+    // Description :  ManagerMain Class의 GUI 컴포넌트를 할당하고 초기화한다.
+    //                ManagerMain Frame은 각 화면에 해당하는 패널들을 가지고있다.
+    //*******************************************************************
     private JPanel cardPanel;
     private CardLayout cardLayout;
 
@@ -76,7 +89,7 @@ public class ManagerMain
         labelTitle.setForeground(new Color(0, 102, 204));
         mainPanel.add(labelTitle, BorderLayout.NORTH);
 
-        // 패널
+        // 좌측 버튼 패널
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setBackground(new Color(245, 245, 245));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -127,9 +140,7 @@ public class ManagerMain
         cardPanel.add(panViewAllCustomer, "ViewAllCustomer");
         cardPanel.add(panViewAllAccount, "ViewAllAccount");
         cardPanel.add(panLogin, "Login");
-
         cardLayout.show(cardPanel, "Login");
-
     }
 
 
@@ -305,8 +316,10 @@ public class ManagerMain
     }
 
     public static void main(String[] args) {
+        // Swing UI는 EDT(Event Dispatch Thread)에서 실행되어야 함
         SwingUtilities.invokeLater(() -> {
             try {
+                // 시스템 룩앤필 설정
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (Exception e) {
                 e.printStackTrace();

@@ -21,6 +21,8 @@ import java.util.List;
 
 
 //*******************************************************************
+// # 05
+//*******************************************************************
 // Name : PanDeposite
 // Type : Class
 // Description :  입금 화면 패널을 구현한 Class 이다.
@@ -41,7 +43,7 @@ public class PanViewAllCustomer extends JPanel implements ActionListener, ListSe
     private JLabel Label_balance; //qqq
     private JTextArea Text_balance; //qqq
 
-    private JButton Btn_Delete;
+    private JButton Btn_Close, Btn_Delete;
     private JScrollPane sp;
 
     private JPanel Pan_left, Pan_right;  //qqq
@@ -49,6 +51,8 @@ public class PanViewAllCustomer extends JPanel implements ActionListener, ListSe
     ManagerMain MainFrame;
 
 
+    //*******************************************************************
+    // # 05-01
     //*******************************************************************
     // Name : PanDeposite()
     // Name : 생성자
@@ -60,6 +64,8 @@ public class PanViewAllCustomer extends JPanel implements ActionListener, ListSe
         InitGUI();
     }
 
+    //*******************************************************************
+    // # 05-02
     //*******************************************************************
     // Name : InitGUI
     // Name : Method
@@ -162,9 +168,15 @@ public class PanViewAllCustomer extends JPanel implements ActionListener, ListSe
         Btn_Delete.addActionListener(this);
         Pan_right.add(Btn_Delete);
 
+        Btn_Close = new JButton("닫기");
+        Btn_Close.setBounds(160,260,70,20);
+        Btn_Close.addActionListener(this);
+        Pan_right.add(Btn_Close);
     }
 
 
+    //*******************************************************************
+    // # 05-02-01
     //*******************************************************************
     // Name : actionPerformed
     // Type : Listner
@@ -181,6 +193,11 @@ public class PanViewAllCustomer extends JPanel implements ActionListener, ListSe
             MainFrame.display("Main");
         }
 
+        if (e.getSource() == Btn_Close)
+        {
+            this.setVisible(false);
+            MainFrame.display("Main");
+        }
     }
 
     public void valueChanged(ListSelectionEvent e) {
@@ -191,6 +208,8 @@ public class PanViewAllCustomer extends JPanel implements ActionListener, ListSe
             System.out.print("");
         }
     }
+    //*******************************************************************
+    // # 05-03
     //*******************************************************************
     // Name : deposit()
     // Type : Method

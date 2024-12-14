@@ -23,13 +23,17 @@ import java.util.concurrent.Executors;
 
 
 //*******************************************************************
+// # 51
+//*******************************************************************
 // Name : ServerMain
 // Type : Class
 // Description :  BankServer의 GUI 프레임이며, ATM과의 소켓통신을 담당한다.
 //                계좌 정보들을 보유하고 있으며, 관련 기능들을 가지고 있다.
 //*******************************************************************
 
-class ServerMain extends JFrame implements ActionListener, ClientHandler {
+class ServerMain
+        extends JFrame
+        implements ActionListener, ClientHandler {
     private JLabel Label_UserCount;
     private JLabel Label_UserCount_2;
     private JToggleButton Btn_StartStop;
@@ -45,6 +49,8 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
     private List<Client> clientList = new Vector<>();
 
 
+    //*******************************************************************
+    // # 51-01
     //*******************************************************************
     // Name : ServerMain()
     // Type : 생성자
@@ -72,6 +78,8 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
     }
 
     //*******************************************************************
+    // # 51-01-01
+    //*******************************************************************
     // Name : GetDefaultCustomers()
     // Type : Method
     // Description :  Server 시작 시 저장된 계좌 정보가 없으면 Default 계좌를 생성하는 기능
@@ -79,22 +87,25 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
     private static List<CustomerVO> GetDefaultCustomers() {
         List<CustomerVO> customerList = new Vector<>();
 
-        customerList.add(new CustomerVO("202400001", "광수","202400001", new CheckingAccount("광수", "202400001",  100_000_000, Date.valueOf(LocalDate.now()))));
-        customerList.add(new CustomerVO("202400002", "영철","202400002", new CheckingAccount("영철", "202400002",  10_000_000, Date.valueOf(LocalDate.now()))));
-        customerList.add(new CustomerVO("202400003", "영숙","202400003", new CheckingAccount("영숙", "202400003", 5_000_000, Date.valueOf(LocalDate.now()))));
-        customerList.add(new CustomerVO("202400004", "옥순","202400004", new CheckingAccount("옥순", "202400004",  1_000_000, Date.valueOf(LocalDate.now()))));
+        customerList.add(new CustomerVO("202300001","광수","202300001", new CheckingAccount("광수", "202300001",  100_000_000, Date.valueOf(LocalDate.now()))));
+        customerList.add(new CustomerVO("202300002","영철","202300002", new CheckingAccount("영철", "202300002",  10_000_000, Date.valueOf(LocalDate.now()))));
+        customerList.add(new CustomerVO("202300003","영숙","202300003", new CheckingAccount("영숙", "202300003", 5_000_000, Date.valueOf(LocalDate.now()))));
+        customerList.add(new CustomerVO("202300004","옥순","202300004", new CheckingAccount("옥순", "202300004",  1_000_000, Date.valueOf(LocalDate.now()))));
         return customerList;
     }
 
     private static List<ManagerVO> GetDefaultManagers() {
         List<ManagerVO> managerList = new Vector<>();
-        managerList.add(new ManagerVO("202001512", "유준형", "202001512"));
-        managerList.add(new ManagerVO("202400002", "김대엽", "202200002"));
-        managerList.add(new ManagerVO("202101164", "서연수", "202101164"));
+        // qqq
+        managerList.add(new ManagerVO("202200001", "짱구", "202200001"));
+        managerList.add(new ManagerVO("202200002", "철수", "202200002"));
+        managerList.add(new ManagerVO("202200003", "맹구", "202200003"));
         return managerList;
     }
 
 
+    //*******************************************************************
+    // # 51-01-02
     //*******************************************************************
     // Name : SaveCustomerFile()
     // Type : Method
@@ -111,7 +122,6 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
         }
     }
 
-
     public void SaveManagerFile(List<ManagerVO> managers, String filePath)
     {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath)))
@@ -125,16 +135,23 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
 
 
     //*******************************************************************
+    // # 51-01-02
+    //*******************************************************************
     // Name : SaveCustomerFile()
     // Type : Method
     // Description :  txt 파일로 저장된 계좌 정보를 Load 하는 기능
     //*******************************************************************
-    public List<CustomerVO> ReadCustomerFile(String filePath) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+    public List<CustomerVO> ReadCustomerFile(String filePath)
+    {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath)))
+        {
             List<CustomerVO> customers = (List<CustomerVO>) ois.readObject();
             System.out.println("Objects read from " + filePath);
             return customers;
-        } catch (IOException | ClassNotFoundException e) {
+        }
+        catch (IOException | ClassNotFoundException e)
+        {
+            // 파일이 존재하지 않을 때 초기 데이터로 리스트를 초기화
             System.out.println("File not found. Initializing with default data.");
             List<CustomerVO> defaultCustomers = GetDefaultCustomers();
             SaveCustomerFile(defaultCustomers, filePath);
@@ -153,6 +170,7 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
         }
         catch (IOException | ClassNotFoundException e)
         {
+            // 파일이 존재하지 않을 때 초기 데이터로 리스트를 초기화
             System.out.println("File not found. Initializing with default data.");
             List<ManagerVO> defaultManagers = GetDefaultManagers();
             SaveManagerFile(defaultManagers, filePath);
@@ -160,6 +178,8 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
         }
     }
 
+    //*******************************************************************
+    // # 51-02 (GUI)
     //*******************************************************************
     // Name : InitGui
     // Type : Method
@@ -213,19 +233,29 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
     }
 
     //*******************************************************************
+    // # 51-02-01
+    //*******************************************************************
     // Name : actionPerformed
     // Type : Listener
     // Description :  ServerMain Frame의 버튼 컴포넌트들의 동작을 구현한 부분
     //                아래 코드에서는 서버 Start/Stop 토글 버튼 기능 및 텍스트창 초기화 버튼기능이 구현 되어 있다.
     //*******************************************************************
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == Btn_StartStop) {
-            if (Btn_StartStop.isSelected()) {
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == Btn_StartStop)
+        {
+            if (Btn_StartStop.isSelected())
+            {
                 startServer();
-            } else {
+            } else
+            {
                 stopServer();
             }
-        } else if (e.getSource() == Btn_Reset) {
+        }
+
+        else if (e.getSource() == Btn_Reset)
+        {
+           // TextArea_Log.removeAll();
             TextArea_Log.setText(null);
         }
     }
@@ -233,6 +263,8 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
 
 
 
+    //*******************************************************************
+    // # 51-03-01
     //*******************************************************************
     // Name : startServer
     // Type : Method
@@ -258,7 +290,7 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
                 {
                     try
                     {
-                        addMsg(socketChannel.getRemoteAddress() + "클라이언트 접속");
+                        addMsg(socketChannel.getRemoteAddress() + " 접속");
                     }
                     catch (IOException e)
                     {
@@ -292,6 +324,8 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
     }
 
     //*******************************************************************
+    // # 51-03-02
+    //*******************************************************************
     // Name : stopServer
     // Type : Method
     // Description :  서버 소켓을 연결 해제 하는 기능
@@ -302,25 +336,27 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
         if (channelGroup != null && !channelGroup.isShutdown())
         {
             try
-                {
-                    channelGroup.shutdownNow();
-                }
+            {
+                channelGroup.shutdownNow();
+            }
             catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
+            {
+                e.printStackTrace();
+            }
             finally
+            {
+                SwingUtilities.invokeLater(() ->
                 {
-                    SwingUtilities.invokeLater(() ->
-                    {
-                        addMsg("서버 정지");
-                        Btn_StartStop.setText("시작");
-                    });
-                }
+                    addMsg("서버 정지");
+                    Btn_StartStop.setText("시작");
+                });
+            }
         }
     }
 
 
+    //*******************************************************************
+    // # 51-03-03
     //*******************************************************************
     // Name : removeClient()
     // Type : Method
@@ -337,15 +373,18 @@ class ServerMain extends JFrame implements ActionListener, ClientHandler {
     }
 
     @Override
-    public void displayInfo(String msg) {
+    public void displayInfo(String msg)
+    {
         addMsg(msg);
     }
-
-    public void addMsg(String data) {
+    public void addMsg(String data)
+    {
         TextArea_Log.append(data + "\n");
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception
+    {
         ServerMain f = new ServerMain();
     }
 }
+

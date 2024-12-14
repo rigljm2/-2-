@@ -13,7 +13,6 @@ public enum RequestType {
     VIEW("계좌항목 조회", 10),
     VIEW_ACCOUNT("계좌정보 조회", 15),
     TRANSFER("계좌이체", 20),
-    EXCHANGE("환전", 25),
     DEPOSIT("입금", 30),
     WITHDRAW("출금", 40),
     LOGIN("로그인", 50),

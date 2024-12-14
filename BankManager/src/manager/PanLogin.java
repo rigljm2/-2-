@@ -33,10 +33,13 @@ public class PanLogin extends JPanel implements ActionListener
 
 
     private JButton Btn_Transfer;
+    private JButton Btn_Close;
 
     ManagerMain MainFrame;
     private BankServiceHandler handler;
 
+    //*******************************************************************
+    // # 02-01
     //*******************************************************************
     // Name : PanLogin()
     // Type : 持失切
@@ -47,6 +50,8 @@ public class PanLogin extends JPanel implements ActionListener
         MainFrame = parent;
         InitGUI();
     }
+    //*******************************************************************
+    // # 02-02
     //*******************************************************************
     // Name : InitGUI
     // Type : Method
@@ -89,9 +94,16 @@ public class PanLogin extends JPanel implements ActionListener
         Btn_Transfer.setBounds(100,250,70,20);
         Btn_Transfer.addActionListener(this);
         add(Btn_Transfer);
+
+        Btn_Close = new JButton("昼社");
+        Btn_Close.setBounds(250,250,70,20);
+        Btn_Close.addActionListener(this);
+        add(Btn_Close);
     }
 
 
+    //*******************************************************************
+    // # 02-02-01
     //*******************************************************************
     // Name : actionPerformed
     // Type : Listner
@@ -106,7 +118,14 @@ public class PanLogin extends JPanel implements ActionListener
             this.setVisible(false);
             MainFrame.display("Main");
         }
+        if (e.getSource() == Btn_Close)
+        {
+            this.setVisible(false);
+            MainFrame.display("Main");
+        }
     }
+    //*******************************************************************
+    // # 02-03
     //*******************************************************************
     // Name : Login()
     // Type : Method

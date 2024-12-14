@@ -15,6 +15,9 @@ import java.nio.ByteBuffer;
 import java.nio.channels.CompletionHandler;
 
 
+//*******************************************************************
+// # 05
+//*******************************************************************
 // Name : PanDeposite
 // Type : Class
 // Description :  입금 화면 패널을 구현한 Class 이다.
@@ -38,6 +41,8 @@ public class PanDeposite extends JPanel implements ActionListener
 
 
     //*******************************************************************
+    // # 05-01
+    //*******************************************************************
     // Name : PanDeposite()
     // Type : 생성자
     // Description :  PanDeposite Class의 생성자 구현
@@ -48,6 +53,9 @@ public class PanDeposite extends JPanel implements ActionListener
         InitGUI();
     }
 
+    //*******************************************************************
+    // # 05-02
+    //*******************************************************************
     // Name : InitGUI
     // Type : Method
     // Description :  입금 화면 패널의 GUI를 초기화 하는 메소드 구현
@@ -99,6 +107,8 @@ public class PanDeposite extends JPanel implements ActionListener
 
 
     //*******************************************************************
+    // # 05-02-01
+    //*******************************************************************
     // Name : actionPerformed
     // Type : Listner
     // Description :  입금 버튼, 취소 버튼의 동작을 구현
@@ -121,6 +131,8 @@ public class PanDeposite extends JPanel implements ActionListener
     }
 
 
+    //*******************************************************************
+    // # 05-03
     //*******************************************************************
     // Name : deposit()
     // Type : Method
@@ -149,7 +161,7 @@ public class PanDeposite extends JPanel implements ActionListener
                         String contentText = null;
                         if (command.getResponseType() == ResponseType.WRONG_ACCOUNT_NO)
                         {
-                            contentText = "잘못된 계좌번호 입니다.";
+                            contentText = "입금 오류! 잘못된 계좌번호 입니다.";
                             JOptionPane.showMessageDialog(null, contentText, "ERROR_MESSAGE", JOptionPane.PLAIN_MESSAGE);
                         }
                         else if (command.getResponseType() == ResponseType.SUCCESS)
@@ -178,5 +190,52 @@ public class PanDeposite extends JPanel implements ActionListener
         });
 
     }
+//    public void deposit() {
+//
+//        long amount = Long.parseLong(Text_Amount.getText());
+//
+//        CommandDTO commandDTO = new CommandDTO(RequestType.DEPOSIT, ATMMain.userId, amount);
+//        MainFrame.send(commandDTO, new CompletionHandler<Integer, ByteBuffer>() {
+//            @Override
+//            public void completed(Integer result, ByteBuffer attachment) {
+//                if (result == -1) {
+//                    return;
+//                }
+//                attachment.flip();
+//                try {
+//                    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(attachment.array());
+//                    ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+//                    CommandDTO command = (CommandDTO) objectInputStream.readObject();
+//                    SwingUtilities.invokeLater(() ->
+//                    {
+//
+//                        String contentText = null;
+//                        if (command.getResponseType() == ResponseType.SUCCESS)
+//                        {
+//                            contentText = "입금 되었습니다.";
+//                            JOptionPane.showMessageDialog(null, contentText, "SUCCESS_MESSAGE", JOptionPane.PLAIN_MESSAGE);
+//                        }
+//                        else
+//                        {
+//
+//                            contentText = "입금 오류! 관리자에게 문의하세요.";
+//                            JOptionPane.showMessageDialog(null, contentText, "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+//                        }
+//                    });
+//                } catch (IOException e)
+//                {
+//                    e.printStackTrace();
+//                } catch (ClassNotFoundException e)
+//                {
+//                    e.printStackTrace();
+//                }
+//            }
+//            @Override
+//            public void failed(Throwable exc, ByteBuffer attachment)
+//            {
+//            }
+//        });
+//
+//    }
 
 }

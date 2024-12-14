@@ -16,6 +16,8 @@ import java.nio.channels.CompletionHandler;
 import java.util.Date;
 
 //*******************************************************************
+// # 03
+//*******************************************************************
 // Name : PanViewAccount
 // Type : Class
 // Description :  계좌조회 화면 패널을 구현한 Class 이다.
@@ -39,6 +41,8 @@ public class PanViewAccount extends JPanel implements ActionListener, ListSelect
     ATMMain MainFrame;
     
     //*******************************************************************
+    // # 03-01
+    //*******************************************************************
     // Name : PanViewAccount()
     // Type : 생성자
     // Description :  PanViewAccount Class의 생성자 구현
@@ -49,6 +53,8 @@ public class PanViewAccount extends JPanel implements ActionListener, ListSelect
         InitGUI();
     }
     
+    //*******************************************************************
+    // # 03-02
     //*******************************************************************
     // Name : InitGUI
     // Type : Method
@@ -62,18 +68,24 @@ public class PanViewAccount extends JPanel implements ActionListener, ListSelect
         Pan_left = new JPanel();
         Pan_left.setLayout(new BorderLayout(10,0));
         Pan_left.setPreferredSize(new Dimension(240,320));
+        //Pan_left.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         add(Pan_left);
         Pan_right = new JPanel();
         Pan_right.setLayout(null);
         Pan_right.setPreferredSize(new Dimension(240,320));
+        //  Pan_right.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         add(Pan_right);
 
         Label_Account = new JLabel(" 계좌 번호");
         Label_Account.setPreferredSize(new Dimension(100, 30));
+        //Label_Account.setBounds(0,0,100,20);
         Label_Account.setHorizontalAlignment(JLabel.LEFT);
         Pan_left.add(Label_Account,BorderLayout.NORTH);
 
         List_Account = new JList();
+        //List_Account.setBounds(0,0,200,150);
+        //List_Account.setPreferredSize(new Dimension(200,100));
+        //List_Account.setLocation(0,30);
         List_Account.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         List_Account.setVisibleRowCount(10);
         List_Account.addListSelectionListener(this);
@@ -125,6 +137,8 @@ public class PanViewAccount extends JPanel implements ActionListener, ListSelect
     }
 
     //*******************************************************************
+    // # 03-02-01
+    //*******************************************************************
     // Name : actionPerformed
     // Type : Listner
     // Description :  취소 버튼의 동작을 구현
@@ -144,19 +158,54 @@ public class PanViewAccount extends JPanel implements ActionListener, ListSelect
     @Override
     public void valueChanged(ListSelectionEvent e) {
         try {
-            GetBalance(((String) List_Account.getSelectedValue()).replaceAll("[^0-9]", ""));
+            ViewAccount(((String) List_Account.getSelectedValue()).replaceAll("[^0-9]", ""));
 
         } catch(RuntimeException o) {
             System.out.print("");
         }
     }
     //*******************************************************************
+    // # 03-03
+    //*******************************************************************
     // Name : GetBalance()
     // Type : Method
     // Description :  ATMMain의 Send 기능을 호출하여 서버에 계좌조회 요청 메시지를 전달 하는 기능.
     //*******************************************************************
+    public void GetAccountList()
+    {
 
-    public void GetBalance(String accNo)
+        MainFrame.send(new CommandDTO(RequestType.VIEW), new CompletionHandler<Integer, ByteBuffer>() {
+            @Override
+            public void completed(Integer result, ByteBuffer attachment) {
+                if (result == -1) {
+                    return;
+                }
+                attachment.flip();
+                try {
+                    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(attachment.array());
+                    ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+                    CommandDTO command = (CommandDTO) objectInputStream.readObject();
+                    SwingUtilities.invokeLater(() -> {
+                        DefaultListModel model = new DefaultListModel();
+
+                        for (String account : command.getUserAccountList()) {
+                            model.addElement(BankUtils.displayAccountNo(account));
+                        }
+                        List_Account.setModel(model);
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void failed(Throwable exc, ByteBuffer attachment) {
+            }
+        });
+    }
+
+    public void ViewAccount(String accNo)
     {
         MainFrame.send(new CommandDTO(RequestType.VIEW_ACCOUNT, accNo), new CompletionHandler<Integer, ByteBuffer>() {
             @Override
@@ -189,4 +238,37 @@ public class PanViewAccount extends JPanel implements ActionListener, ListSelect
             }
         });
     }
+
+    //*******************************************************************
+//    public void GetBalance()
+//    {
+//        MainFrame.send(new CommandDTO(RequestType.VIEW), new CompletionHandler<Integer, ByteBuffer>() {
+//            @Override
+//            public void completed(Integer result, ByteBuffer attachment) {
+//                if (result == -1) {
+//                    return;
+//                }
+//                attachment.flip();
+//                try {
+//                    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(attachment.array());
+//                    ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+//                    CommandDTO command = (CommandDTO) objectInputStream.readObject();
+//                    SwingUtilities.invokeLater(() -> {
+//                        String accountNumber = BankUtils.displayAccountNo(command.getUserAccountNo());
+//                        Text_Account.setText(accountNumber);
+//                        String balance = BankUtils.displayBalance(command.getBalance());
+//                        Text_balance.setText(balance + "원");
+//                    });
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                } catch (ClassNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            @Override
+//            public void failed(Throwable exc, ByteBuffer attachment) {
+//            }
+//        });
+//    }
+
 }

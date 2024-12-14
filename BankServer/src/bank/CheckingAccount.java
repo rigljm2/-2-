@@ -13,16 +13,15 @@ public class CheckingAccount extends AccountVO{
         this.setBalance(balance);
         this.setOpenDate(openDate);
     }
-    @Override
     public String display() {
         return "CheckingAccount{" +
-                "owner='" + getOwner() + '\'' +
-                ", accountNo='" + getAccountNo() + '\'' +
-                ", type=" + getType() +
-                ", linkedAccountNo=" + LinkedSavings.getAccountNo() +
-                ", balance=" + getBalance() +
-                ", openDate=" + getOpenDate() +
-                '}';
+            "owner='" + getOwner() + '\'' +
+                    ", accountNo='" + getAccountNo() + '\'' +
+                    ", type=" + getType() +
+                    ", linkedAccountNo=" + LinkedSavings.getAccountNo() +
+                    ", balance=" + getBalance() +
+                    ", openDate=" + getOpenDate() +
+                    '}';
 
     }
 }

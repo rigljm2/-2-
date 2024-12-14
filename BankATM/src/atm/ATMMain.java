@@ -18,6 +18,7 @@ import java.nio.channels.CompletionHandler;
 // Type : Class
 // Description :  ATM기기의 GUI 프레임이며, 서버와의 소켓통신을 담당한다
 //*******************************************************************
+
 public class ATMMain extends JFrame implements ActionListener, BankServiceHandler {
 
     private JLabel Label_Title;
@@ -30,16 +31,19 @@ public class ATMMain extends JFrame implements ActionListener, BankServiceHandle
     private ImageIcon IconCNU;
     private JLabel Label_Image;
 
+
     PanViewAccount Pan_ViewAccount;
     PanTransfer Pan_Transfer;
     PanDeposite Pan_Deposite;
     PanWithdrawal Pan_Withdrawal;
     PanLogin Pan_Login;
 
+
     public static String userId;
     private Socket socket;
     private OutputStream outputStream;
     private InputStream inputStream;
+
 
     //*******************************************************************
     // Name : ATMMain()
@@ -76,6 +80,7 @@ public class ATMMain extends JFrame implements ActionListener, BankServiceHandle
             e.printStackTrace();
         }
 
+
         Label_Title = new JLabel("CNU Bank ATM");
         Label_Title.setFont(new Font("Arial", Font.PLAIN, 30));
         Label_Title.setSize(getWidth(), 60);
@@ -84,37 +89,37 @@ public class ATMMain extends JFrame implements ActionListener, BankServiceHandle
         add(Label_Title);
 
         Btn_ViewAccount = new JButton("계좌 조회");
-        Btn_ViewAccount.setSize(100, 70);
+        Btn_ViewAccount.setSize(100,70);
         Btn_ViewAccount.setLocation(0, 60);
         Btn_ViewAccount.addActionListener(this);
         add(Btn_ViewAccount);
 
         Btn_Transfer = new JButton("계좌 이체");
-        Btn_Transfer.setSize(100, 70);
+        Btn_Transfer.setSize(100,70);
         Btn_Transfer.setLocation(0, 130);
         Btn_Transfer.addActionListener(this);
         add(Btn_Transfer);
 
         Btn_Login = new JButton("로그인");
-        Btn_Login.setSize(100, 70);
+        Btn_Login.setSize(100,70);
         Btn_Login.setLocation(0, 200);
         Btn_Login.addActionListener(this);
         add(Btn_Login);
 
         Btn_Deposite = new JButton("입금");
-        Btn_Deposite.setSize(100, 70);
+        Btn_Deposite.setSize(100,70);
         Btn_Deposite.setLocation(365, 60);
         Btn_Deposite.addActionListener(this);
         add(Btn_Deposite);
 
         Btn_Withdrawal = new JButton("출금");
-        Btn_Withdrawal.setSize(100, 70);
+        Btn_Withdrawal.setSize(100,70);
         Btn_Withdrawal.setLocation(365, 130);
         Btn_Withdrawal.addActionListener(this);
         add(Btn_Withdrawal);
 
         Btn_Exit = new JButton("종료");
-        Btn_Exit.setSize(100, 70);
+        Btn_Exit.setSize(100,70);
         Btn_Exit.setLocation(365, 200);
         Btn_Exit.addActionListener(this);
         add(Btn_Exit);
@@ -150,6 +155,9 @@ public class ATMMain extends JFrame implements ActionListener, BankServiceHandle
         if (e.getSource() == Btn_ViewAccount) {
             // 계좌 조회
             display("ViewAccount");
+            if(userId != null) {
+                Pan_ViewAccount.GetAccountList();
+            }
         } else if (e.getSource() == Btn_Transfer) {
             // 계좌 이체
             display("Transfer");
@@ -198,6 +206,8 @@ public class ATMMain extends JFrame implements ActionListener, BankServiceHandle
         Label_Image.setVisible(bOn);
     }
 
+
+
     //*******************************************************************
     // Name : startClient()
     // Type : Method
@@ -215,6 +225,7 @@ public class ATMMain extends JFrame implements ActionListener, BankServiceHandle
             disconnectServer();
         }
     }
+
 
     //*******************************************************************
     // Name : stopClient(), disconnectServer()

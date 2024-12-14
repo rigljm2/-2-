@@ -14,6 +14,8 @@ import java.nio.ByteBuffer;
 import java.nio.channels.CompletionHandler;
 
 //*******************************************************************
+// # 06
+//*******************************************************************
 // Name : PanWithdrawal
 // Type : Class
 // Description :  출금 화면 패널을 구현한 Class 이다.
@@ -35,6 +37,8 @@ public class PanWithdrawal extends JPanel implements ActionListener
     ATMMain MainFrame;
 
     //*******************************************************************
+    // # 06-01
+    //*******************************************************************
     // Name : PanWithdrawal()
     // Type : 생성자
     // Description :  PanDeposite Class의 생성자 구현
@@ -45,6 +49,8 @@ public class PanWithdrawal extends JPanel implements ActionListener
         InitGUI();
     }
     
+    //*******************************************************************
+    // # 06-02
     //*******************************************************************
     // Name : InitGUI
     // Type : Method
@@ -95,6 +101,8 @@ public class PanWithdrawal extends JPanel implements ActionListener
     }
 
     //*******************************************************************
+    // # 06-02-01
+    //*******************************************************************
     // Name : actionPerformed
     // Type : Listner
     // Description :  입금 버튼, 취소 버튼의 동작을 구현
@@ -115,6 +123,8 @@ public class PanWithdrawal extends JPanel implements ActionListener
         }
     }
 
+    //*******************************************************************
+    // # 06-03
     //*******************************************************************
     // Name : Withdrawal()
     // Type : Method

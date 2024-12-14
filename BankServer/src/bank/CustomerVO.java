@@ -5,6 +5,8 @@ import java.sql.Array;
 import java.util.*;
 
 //*******************************************************************
+// # 53
+//*******************************************************************
 // Name : CustomerVO
 // Type : Class
 // Description :  고객정보를 정의 하기 위해 필요한 VO(ValueObject)이다.
@@ -78,6 +80,12 @@ public class CustomerVO implements Serializable {
     }
     public List<AccountVO> getAccounts() {return new ArrayList<>(accounts);} // qqq
 
+
+//    public String[] getAccountsNo() {
+//        Object[] ob = accounts.stream().map(a -> a.getAccountNo()).toArray();
+//        String[] number = Arrays.copyOf(ob, ob.length, String[].class);
+//        return number;
+//    }
     public String[] getAccountsNo() {
         return accounts.stream().map(AccountVO::getAccountNo).toArray(String[]::new);
     }
@@ -94,7 +102,6 @@ public class CustomerVO implements Serializable {
         this.accounts.remove(account);
     }
 
-
     @Override
     public String toString() {
         return "CustomerVO{" +
@@ -107,5 +114,3 @@ public class CustomerVO implements Serializable {
                 '}';
     }
 }
-
-

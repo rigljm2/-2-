@@ -15,6 +15,8 @@ import java.nio.ByteBuffer;
 import java.nio.channels.CompletionHandler;
 
 //*******************************************************************
+// # 02
+//*******************************************************************
 // Name : PanLogin
 // Type : Class
 // Description :  로그인 화면 패널을 구현한 Class 이다.
@@ -38,6 +40,8 @@ public class PanLogin extends JPanel implements ActionListener
     private BankServiceHandler handler;
 
     //*******************************************************************
+    // # 02-01
+    //*******************************************************************
     // Name : PanLogin()
     // Type : 생성자
     // Description :  PanLogin Class의 생성자 구현
@@ -47,6 +51,8 @@ public class PanLogin extends JPanel implements ActionListener
         MainFrame = parent;
         InitGUI();
     }
+    //*******************************************************************
+    // # 02-02
     //*******************************************************************
     // Name : InitGUI
     // Type : Method
@@ -98,6 +104,8 @@ public class PanLogin extends JPanel implements ActionListener
 
 
     //*******************************************************************
+    // # 02-02-01
+    //*******************************************************************
     // Name : actionPerformed
     // Type : Listner
     // Description :  로그인 버튼, 취소 버튼의 동작을 구현
@@ -118,6 +126,8 @@ public class PanLogin extends JPanel implements ActionListener
         }
     }
     //*******************************************************************
+    // # 02-03
+    //*******************************************************************
     // Name : Login()
     // Type : Method
     // Description :  로그인 화면의 데이터를 가지고 있는 CommandDTO를 생성하고,
@@ -128,7 +138,6 @@ public class PanLogin extends JPanel implements ActionListener
         String id = Text_ID.getText();
         String password = Text_Password.getText();
         MainFrame.userId = id;
-
         MainFrame.send(new CommandDTO(RequestType.LOGIN, id, password), new CompletionHandler<Integer, ByteBuffer>()
         {
             @Override
@@ -170,15 +179,11 @@ public class PanLogin extends JPanel implements ActionListener
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    // Clear buffer for next write operation
-                    attachment.clear();
+                    e.printStackTrace();
                 }
             }
             @Override
             public void failed(Throwable exc, ByteBuffer attachment) {
-                JOptionPane.showMessageDialog(null, "서버 통신 실패: " + exc.getMessage(), "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
             }
         });
 

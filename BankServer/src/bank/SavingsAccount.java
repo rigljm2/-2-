@@ -14,7 +14,6 @@ public class SavingsAccount extends AccountVO{
         this.setBalance(balance);
         this.setOpenDate(openDate);
     }
-    @Override
     public String display() {
         return "SavingsAccount{" +
             "owner='" + getOwner() + '\'' +

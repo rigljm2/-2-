@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.sql.Date;
 
 //*******************************************************************
+// # 54
+//*******************************************************************
 // Name : AccountVO
 // Type : Class
 // Description :  계좌정보를 정의 하기 위해 필요한 VO(ValueObject)이다.
@@ -13,7 +15,7 @@ import java.sql.Date;
 //                오브젝트 형태로 txt에 저장할수 있도록 implements Serializable를 통해
 //                직렬화 되어있다.
 //*******************************************************************
-public abstract class AccountVO implements Serializable {
+public class AccountVO implements Serializable {
     private String owner;
     private String accountNo;
     private AccountType type;
@@ -70,7 +72,6 @@ public abstract class AccountVO implements Serializable {
     public void setOpenDate(Date openDate) {
         this.openDate = openDate;
     }
-    public abstract String display();
 
     @Override
     public String toString() {

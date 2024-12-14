@@ -14,6 +14,8 @@ import java.nio.ByteBuffer;
 import java.nio.channels.CompletionHandler;
 
 //*******************************************************************
+// # 04
+//*******************************************************************
 // Name : PanTransfer
 // Type : Class
 // Description :  계좌 이체 패널을 구현한 Class 이다.
@@ -42,6 +44,8 @@ public class PanTransfer extends JPanel implements ActionListener
     ATMMain MainFrame;
 
     //*******************************************************************
+    // # 04-01
+    //*******************************************************************
     // Name : PanTransfer()
     // Type : 생성자
     // Description :  PanTransfer Class의 생성자 구현
@@ -52,6 +56,8 @@ public class PanTransfer extends JPanel implements ActionListener
         InitGUI();
     }
     
+    //*******************************************************************
+    // # 04-02
     //*******************************************************************
     // Name : InitGUI
     // Type : Method
@@ -118,6 +124,8 @@ public class PanTransfer extends JPanel implements ActionListener
 
 
     //*******************************************************************
+    // # 04-02-01
+    //*******************************************************************
     // Name : actionPerformed
     // Type : Listner
     // Description :  이체 버튼, 취소 버튼의 동작을 구현
@@ -138,6 +146,8 @@ public class PanTransfer extends JPanel implements ActionListener
         }
     }
 
+    //*******************************************************************
+    // # 04-03
     //*******************************************************************
     // Name : Transfer()
     // Type : Method
